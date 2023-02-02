@@ -25,10 +25,7 @@ final class RecentCallViewController: UIViewController {
         setupUINavigation()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        deinitialSetup()
-    }
+    
     
     // MARK: - Function
     
@@ -37,19 +34,6 @@ final class RecentCallViewController: UIViewController {
         // 셀 등록
         myView.tableView.register(RecentCallTableViewCell.self, forCellReuseIdentifier: "RecentCallCell")
         
-        // NotificationCenter
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(didEnterBackground),
-            name: UIApplication.didEnterBackgroundNotification,
-            object: nil
-        )
-    }
-    
-    func deinitialSetup() {
-        
-        // NotificationCenter
-        NotificationCenter.default.removeObserver(self)
     }
     
     func manageDelegate() {
@@ -65,13 +49,6 @@ final class RecentCallViewController: UIViewController {
         // left
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             title: "편집", style: .plain, target: self, action: nil)
-    }
-    
-    // 앱 Background 시 호출 메서드
-    @objc func didEnterBackground() {
-        let vc = ContaceViewController()
-        vc.modalPresentationStyle = .fullScreen
-        present(vc, animated: true)
     }
     
 }
