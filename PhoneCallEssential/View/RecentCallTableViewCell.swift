@@ -16,6 +16,7 @@ final class RecentCallTableViewCell: UITableViewCell {
             guard let recentCall = recentCall else { return }
             sentPersonNameLabel.text = recentCall.sentPersonName
             sentLocationLabel.text = recentCall.sentLocation
+            sentDateLabel.text = recentCall.sentDate
         }
     }
     
@@ -25,7 +26,6 @@ final class RecentCallTableViewCell: UITableViewCell {
     
     let sentPersonNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "사용자 이름"
         label.font = .systemFont(ofSize: 17, weight: .bold)
         label.textAlignment = .left
         return label
@@ -33,7 +33,6 @@ final class RecentCallTableViewCell: UITableViewCell {
     
     let sentLocationLabel: UILabel = {
         let label = UILabel()
-        label.text = "발신 정보"
         label.font = .systemFont(ofSize: 14, weight: .regular)
         label.textAlignment = .left
         label.textColor = .systemGray
@@ -46,6 +45,31 @@ final class RecentCallTableViewCell: UITableViewCell {
         stack.distribution = .fill
         stack.alignment = .fill
         stack.spacing = 4
+        return stack
+    }()
+    
+    let sentDateLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 15, weight: .medium)
+        label.textAlignment = .right
+        label.textColor = .systemGray
+        return label
+    }()
+    
+    lazy var sentInfo: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(systemName: "info.circle"), for: .normal)
+        button.setPreferredSymbolConfiguration(.init(pointSize: 20), forImageIn: .normal)
+        button.addTarget(self, action: #selector(sentInfoButtonTapped), for: .touchUpInside)
+        return button
+    }()
+    
+    lazy var rightStackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [sentDateLabel, sentInfo])
+        stack.axis = .horizontal
+        stack.distribution = .fill
+        stack.alignment = .fill
+        stack.spacing = 6
         return stack
     }()
     
@@ -62,6 +86,11 @@ final class RecentCallTableViewCell: UITableViewCell {
     
     func setupAddView() {
         addSubview(leftStackView)
+        addSubview(rightStackView)
+    }
+    
+    @objc func sentInfoButtonTapped() {
+        print("버튼 클릭!")
     }
     
     
@@ -76,12 +105,18 @@ final class RecentCallTableViewCell: UITableViewCell {
         
         // Auto Resize false
         leftStackView.translatesAutoresizingMaskIntoConstraints = false
+        rightStackView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             
             // leftStackView
             leftStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
             leftStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 0),
+            
+            // rightStackView
+            rightStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+            rightStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 0),
+            
         ])
         
     }

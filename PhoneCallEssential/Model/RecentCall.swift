@@ -12,5 +12,5 @@ struct RecentCall {
     var phoneNumber: Int
     var sentPersonName: String
     var sentLocation: String
-//    var sentDate: String
+    var sentDate: String
 }

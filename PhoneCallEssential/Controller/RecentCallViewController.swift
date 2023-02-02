@@ -63,21 +63,22 @@ extension RecentCallViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = myView.tableView.dequeueReusableCell(withIdentifier: "RecentCallCell") as! RecentCallTableViewCell
         
         cell.recentCall = recentCallDataManager.getRecentCallData()[indexPath.row]
+        cell.selectionStyle = .none
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        // URLScheme 문자열을 통한 URL 인스턴스 생성
-        if let url = NSURL(string: "tel://0" + "\(recentCallDataManager.getRecentCallData()[indexPath.row].phoneNumber)"),
-           
-            // canOpenURL 메서드를 통한 앱을 사용할 수 있는지 여부 확인
-            UIApplication.shared.canOpenURL(url as URL) {
-            
-            // 사용 가능하다면 open을 통해 인스턴스 열어주기
-            UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
-        }
+//        // URLScheme 문자열을 통한 URL 인스턴스 생성
+//        if let url = NSURL(string: "tel://0" + "\(recentCallDataManager.getRecentCallData()[indexPath.row].phoneNumber)"),
+//
+//            // canOpenURL 메서드를 통한 앱을 사용할 수 있는지 여부 확인
+//            UIApplication.shared.canOpenURL(url as URL) {
+//
+//            // 사용 가능하다면 open을 통해 인스턴스 열어주기
+//            UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
+//        }
         
     }
     
